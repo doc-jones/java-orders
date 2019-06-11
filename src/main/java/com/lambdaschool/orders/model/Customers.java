@@ -39,6 +39,7 @@ public class Customers {
     public Customers() {
     }
 
+
     public Customers(String custname, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone) {
         this.custname = custname;
         this.workingarea = workingarea;
