@@ -6,11 +6,13 @@ import com.lambdaschool.orders.repos.CustomersRepository;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service(value = "customersService")
 public class CustomersServiceImpl implements CustomersService {
 
@@ -49,6 +51,7 @@ public class CustomersServiceImpl implements CustomersService {
     }
     }
 
+    @Transactional
     @Override
     public Customers save(Customers customers) {
         Customers newCustomer = new Customers();
@@ -69,6 +72,7 @@ public class CustomersServiceImpl implements CustomersService {
         return custrepos.save(newCustomer);
     }
 
+    @Transactional
     @Override
     public Customers update(Customers customers, long id) throws EntityNotFoundException {
 
