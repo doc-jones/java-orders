@@ -1,88 +1,104 @@
 package com.lambdaschool.orders.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "orders")
-public class Orders {
-
+public class Orders
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ordernum;
+    private long ordnum;
 
     private double ordamount;
     private double advanceamount;
+    private String ordersescription;
 
-    @ManyToOne(fetch =FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "custcode",
-        nullable = false)
-    private Customers customers;
+            nullable = false)
+    @JsonIgnore
+    private Customers customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agentcode",
-        nullable = false)
-    private Agents agents;
+            nullable = false)
+    @JsonIgnore
+    private Agents agent;
 
-    private String orddescription;
-
-    public Orders() {
+    public Orders()
+    {
     }
 
-    public Orders(double ordamount, double advanceamount, Customers customers, Agents agents, String orddescription) {
+    public Orders(double ordamount, double advanceamount, Customers customer, Agents agents, String ordersescription, Customers newCustomer)
+    {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
-        this.customers = customers;
-        this.agents = agents;
-        this.orddescription = orddescription;
+        this.ordersescription = ordersescription;
+        this.customer = customer;
+        this.agent = agents;
     }
 
-    public long getOrdernum() {
-        return ordernum;
+    public long getOrdnum()
+    {
+        return ordnum;
     }
 
-    public void setOrdernum(long ordernum) {
-        this.ordernum = ordernum;
+    public void setOrdnum(long ordnum)
+    {
+        this.ordnum = ordnum;
     }
 
-    public double getOrdamount() {
+    public double getOrdamount()
+    {
         return ordamount;
     }
 
-    public void setOrdamount(double ordamount) {
+    public void setOrdamount(double ordamount)
+    {
         this.ordamount = ordamount;
     }
 
-    public double getAdvanceamount() {
+    public double getAdvanceamount()
+    {
         return advanceamount;
     }
 
-    public void setAdvanceamount(double advanceamount) {
+    public void setAdvanceamount(double advanceamount)
+    {
         this.advanceamount = advanceamount;
     }
 
-    public Customers getCustomers() {
-        return customers;
+    public String getOrdersescription()
+    {
+        return ordersescription;
     }
 
-    public void setCustomers(Customers customers) {
-        this.customers = customers;
+    public void setOrdersescription(String ordersescription)
+    {
+        this.ordersescription = ordersescription;
     }
 
-    public Agents getAgents() {
-        return agents;
+    public Customers getCustomer()
+    {
+        return customer;
     }
 
-    public void setAgents(Agents agents) {
-        this.agents = agents;
+    public void setCustomer(Customers customer)
+    {
+        this.customer = customer;
     }
 
-    public String getOrddescription() {
-        return orddescription;
+    public Agents getAgent()
+    {
+        return agent;
     }
 
-    public void setOrddescription(String orddescription) {
-        this.orddescription = orddescription;
+    public void setAgent(Agents agent)
+    {
+        this.agent = agent;
     }
 }

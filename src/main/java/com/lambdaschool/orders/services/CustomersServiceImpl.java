@@ -1,9 +1,9 @@
 package com.lambdaschool.orders.services;
 
+import com.lambdaschool.orders.model.Agents;
 import com.lambdaschool.orders.model.Customers;
 import com.lambdaschool.orders.model.Orders;
 import com.lambdaschool.orders.repos.CustomersRepository;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +67,10 @@ public class CustomersServiceImpl implements CustomersService {
         newCustomer.setPhone(customers.getPhone());
 
         for (Orders o : customers.getOrders()) {
+            newCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdvanceamount(), o.getCustomer(), o.getAgent(), o.getOrdersescription(), newCustomer));
+        }
+
+        for (Agents a : customers.getAgent()) {
             newCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdvanceamount(), o.getCustomers(), o.getAgents(), o.getOrddescription(), newCustomer));
         }
         return custrepos.save(newCustomer);
@@ -105,6 +109,9 @@ public class CustomersServiceImpl implements CustomersService {
         }
         if (customers.getPhone() != null) {
             currentCustomer.setPhone(customers.getPhone());
+        }
+        for (Orders o : customers.getOrders()) {
+            currentCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdvanceamount(), o.getCustomer(), o.getAgent(), o.getOrdersescription(), currentCustomer));
         }
         return custrepos.save(currentCustomer);
     }
